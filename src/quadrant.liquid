@@ -1,0 +1,62 @@
+{% if status == "success" %}
+<div class="layout">
+  <div class="columns">
+    <div class="column">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><span class="title title--small">US AQI</span></td>
+            <td><span class="label">{{ data.current.pollution.aqius }}</span></td>
+          </tr>
+          <tr>
+            <td><span class="title title--small">US Pollution Level</span></td>
+            <td><span class="label">
+              {% if data.current.pollution.aqius <= 50 %}
+                Good
+              {% elsif data.current.pollution.aqius <= 100 %}
+                Moderate
+              {% elsif data.current.pollution.aqius <= 150 %}
+                Unhealthy for Sensitive Groups
+              {% elsif data.current.pollution.aqius <= 200 %}
+                Unhealthy
+              {% elsif data.current.pollution.aqius <= 300 %}
+                Very Unhealthy
+              {% else %}
+                Hazardous
+              {% endif %}
+            </span></td>
+          </tr>
+          <tr>
+            <td><span class="title title--small">US Main Pollutant</span></td>
+            <td><span class="label">
+              {% if data.current.pollution.mainus == "co" %}
+                Carbon Monoxide
+              {% elsif data.current.pollution.mainus == "n2" %}
+                Nitrogen Dioxide
+              {% elsif data.current.pollution.mainus == "o3" %}
+                Ozone
+              {% elsif data.current.pollution.mainus == "p1" %}
+                Particulate (&lt;= 10 μm)
+              {% elsif data.current.pollution.mainus == "p2" %}
+                Particulate (&lt;= 2.5 μm)
+              {% elsif data.current.pollution.mainus == "s2" %}
+                Sulpher Dioxide
+              {% else %}
+                Unknown {{ data.current.pollution.mainus }}
+              {% endif %}
+            </span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% else %}
+Error loading data: {{ status }}
+{% endif %}
+
+<div class="title_bar">
+  <img class="image" src="https://trmnl.com/images/plugins/trmnl--render.svg">
+  <span class="title">IQAir AirVisual</span>
+  <span class="instance">{{ data.city }} @ {{ data.current.pollution.ts | date: "%s" | plus: trmnl.user.utc_offset | date: "%H:%M" }}</span>
+</div>

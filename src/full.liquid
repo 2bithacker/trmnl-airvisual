@@ -1,0 +1,80 @@
+{% if status == "success" %}
+<div class="layout">
+  <div class="columns">
+    <div class="column">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><span class="title title--small">AQI</span></td>
+            <td><span class="label">{{ data.current.pollution.aqius }}</span></td>
+          </tr>
+          <tr>
+            <td><span class="title title--small">Pollution Level</span></td>
+            <td><span class="label">
+              {% if data.current.pollution.aqius <= 50 %}
+                Good
+              {% elsif data.current.pollution.aqius <= 100 %}
+                Moderate
+              {% elsif data.current.pollution.aqius <= 150 %}
+                Unhealthy for Sensitive Groups
+              {% elsif data.current.pollution.aqius <= 200 %}
+                Unhealthy
+              {% elsif data.current.pollution.aqius <= 300 %}
+                Very Unhealthy
+              {% else %}
+                Hazardous
+              {% endif %}
+            </span></td>
+          </tr>
+          <tr>
+            <td><span class="title title--small">Description</span></td>
+            <td><span class="label">
+              {% if data.current.pollution.aqius <= 50 %}
+                Air quality is considered satisfactory, and air pollution poses little or no risk.
+              {% elsif data.current.pollution.aqius <= 100 %}
+                Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.
+              {% elsif data.current.pollution.aqius <= 150 %}
+                Members of sensitive groups may experience health effects. The general public is not likely to be affected.
+              {% elsif data.current.pollution.aqius <= 200 %}
+                Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.
+              {% elsif data.current.pollution.aqius <= 300 %}
+                Health warnings of emergency conditions. The entire population is more likely to be affected.
+              {% else %}
+                Health alert: everyone may experience more serious health effects.
+              {% endif %}
+            </span></td>
+          </tr>
+          <tr>
+            <td><span class="title title--small">Main Pollutant</span></td>
+            <td><span class="label">
+              {% if data.current.pollution.mainus == "co" %}
+                Carbon Monoxide
+              {% elsif data.current.pollution.mainus == "n2" %}
+                Nitrogen Dioxide
+              {% elsif data.current.pollution.mainus == "o3" %}
+                Ozone
+              {% elsif data.current.pollution.mainus == "p1" %}
+                Particulate (&lt;= 10 μm)
+              {% elsif data.current.pollution.mainus == "p2" %}
+                Particulate (&lt;= 2.5 μm)
+              {% elsif data.current.pollution.mainus == "s2" %}
+                Sulpher Dioxide
+              {% else %}
+                Unknown {{ data.current.pollution.mainus }}
+              {% endif %}
+            </span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% else %}
+Error loading data: {{ status }}
+{% endif %}
+
+<div class="title_bar">
+  <img class="image" src="https://trmnl.com/images/plugins/trmnl--render.svg">
+  <span class="title">IQAir AirVisual</span>
+  <span class="instance">{{ data.city }} @ {{ data.current.pollution.ts | date: "%s" | plus: trmnl.user.utc_offset | date: "%F %H:%M" }}</span>
+</div>

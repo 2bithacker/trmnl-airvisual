@@ -16,8 +16,4 @@
 Error loading data: {{ status }}
 {% endif %}
 
-<div class="title_bar">
-  <img class="image" src="https://trmnl.com/images/plugins/trmnl--render.svg">
-  <span class="title">IQAir AirVisual</span>
-  <span class="instance">{{ data.city }} @ {{ data.current.pollution.ts | date: "%s" | plus: trmnl.user.utc_offset | date: "%F %H:%M" }}</span>
-</div>
+{{ title_bar }}

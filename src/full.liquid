@@ -46,15 +46,15 @@
       <img class="image--adaptive" src="https://raw.githubusercontent.com/dnguyen800/air-visual-card/refs/heads/master/dist/{{ aqi_icon }}">
     </div>
     <div class="flex flex--col">
-      <div><span class="value value--tnums">{{ data.current.pollution.aqius }}</span></div>
-      <div><span class="label">AQI</span></div>
-    </div>
-    <div class="flex flex--col">
       <div><span class="value value--tnums">{{ aqi_level }}</span></div>
       <div><span class="label">{{ aqi_pollution }}</span></div>
     </div>
+    <div class="flex flex--col">
+      <div><span class="value value--tnums">{{ data.current.pollution.aqius }}</span></div>
+      <div><span class="label">AQI</span></div>
+    </div>
   </div>
-  <div class="flex flex--row gap--xxlarge px--10">
+  <div class="flex flex--row gap--xxlarge p--10">
     <div>
       <span class="text--large">{{ aqi_descr }}</span>
     </div>

@@ -1,76 +1,62 @@
 {% if status == "success" %}
-<div class="grid grid--cols-5">
-  <div class="col--span-1"><img class="image--adaptive" src="https://raw.githubusercontent.com/dnguyen800/air-visual-card/refs/heads/master/dist/ic-face-1.svg"></div>
-  <div class="col--span-2">AQI</div>
-  <div class="col--span-2">Level</div>
-</div>
-<div class="layout">
-  <div class="columns">
-    <div class="column">
-      <table class="table">
-        <tbody>
-          <tr>
-            <td><span class="title title--small">AQI</span></td>
-            <td><span class="label">{{ data.current.pollution.aqius }}</span></td>
-          </tr>
-          <tr>
-            <td><span class="title title--small">Pollution Level</span></td>
-            <td><span class="label">
-              {% if data.current.pollution.aqius <= 50 %}
-                Good
-              {% elsif data.current.pollution.aqius <= 100 %}
-                Moderate
-              {% elsif data.current.pollution.aqius <= 150 %}
-                Unhealthy for Sensitive Groups
-              {% elsif data.current.pollution.aqius <= 200 %}
-                Unhealthy
-              {% elsif data.current.pollution.aqius <= 300 %}
-                Very Unhealthy
-              {% else %}
-                Hazardous
-              {% endif %}
-            </span></td>
-          </tr>
-          <tr>
-            <td><span class="title title--small">Description</span></td>
-            <td><span class="label">
-              {% if data.current.pollution.aqius <= 50 %}
-                Air quality is considered satisfactory, and air pollution poses little or no risk.
-              {% elsif data.current.pollution.aqius <= 100 %}
-                Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.
-              {% elsif data.current.pollution.aqius <= 150 %}
-                Members of sensitive groups may experience health effects. The general public is not likely to be affected.
-              {% elsif data.current.pollution.aqius <= 200 %}
-                Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.
-              {% elsif data.current.pollution.aqius <= 300 %}
-                Health warnings of emergency conditions. The entire population is more likely to be affected.
-              {% else %}
-                Health alert: everyone may experience more serious health effects.
-              {% endif %}
-            </span></td>
-          </tr>
-          <tr>
-            <td><span class="title title--small">Main Pollutant</span></td>
-            <td><span class="label">
-              {% if data.current.pollution.mainus == "co" %}
-                Carbon Monoxide
-              {% elsif data.current.pollution.mainus == "n2" %}
-                Nitrogen Dioxide
-              {% elsif data.current.pollution.mainus == "o3" %}
-                Ozone
-              {% elsif data.current.pollution.mainus == "p1" %}
-                Particulate (&lt;= 10 μm)
-              {% elsif data.current.pollution.mainus == "p2" %}
-                Particulate (&lt;= 2.5 μm)
-              {% elsif data.current.pollution.mainus == "s2" %}
-                Sulpher Dioxide
-              {% else %}
-                Unknown {{ data.current.pollution.mainus }}
-              {% endif %}
-            </span></td>
-          </tr>
-        </tbody>
-      </table>
+{% if data.current.pollution.aqius <= 50 %}
+  {% assign aqi_icon = "ic-face-1.svg" %}
+  {% assign aqi_level = "Good" %}
+  {% assign aqi_descr = "Air quality is considered satisfactory, and air pollution poses little or no risk." %}
+{% elsif data.current.pollution.aqius <= 100 %}
+  {% assign aqi_icon = "ic-face-2.svg" %}
+  {% assign aqi_level = "Moderate" %}
+  {% assign aqi_descr = "Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution." %}
+{% elsif data.current.pollution.aqius <= 150 %}
+  {% assign aqi_icon = "ic-face-3.svg" %}
+  {% assign aqi_level = "Unhealthy for Sensitive Groups" %}
+  {% assign aqi_descr = "Members of sensitive groups may experience health effects. The general public is not likely to be affected." %}
+{% elsif data.current.pollution.aqius <= 200 %}
+  {% assign aqi_icon = "ic-face-4.svg" %}
+  {% assign aqi_level = "Unhealthy" %}
+  {% assign aqi_descr = "Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects." %}
+{% elsif data.current.pollution.aqius <= 300 %}
+  {% assign aqi_icon = "ic-face-5.svg" %}
+  {% assign aqi_level = "Very Unhealthy" %}
+  {% assign aqi_descr = "Health warnings of emergency conditions. The entire population is more likely to be affected." %}
+{% else %}
+  {% assign aqi_icon = "ic-face-6.svg" %}
+  {% assign aqi_level = "Hazardous" %}
+  {% assign aqi_descr = "Health alert: everyone may experience more serious health effects." %}
+{% endif %}
+
+{% if data.current.pollution.mainus == "co" %}
+  {% assign aqi_pollution = "Carbon Monoxide" %}
+{% elsif data.current.pollution.mainus == "n2" %}
+  {% assign aqi_pollution = "Nitrogen Dioxide" %}
+{% elsif data.current.pollution.mainus == "o3" %}
+  {% assign aqi_pollution = "Ozone" %}
+{% elsif data.current.pollution.mainus == "p1" %}
+  {% assign aqi_pollution = "Particulate (&lt;= 10 μm)" %}
+{% elsif data.current.pollution.mainus == "p2" %}
+  {% assign aqi_pollution = "Particulate (&lt;= 2.5 μm)" %}
+{% elsif data.current.pollution.mainus == "s2" %}
+  {% assign aqi_pollution = "Sulpher Dioxide" %}
+{% else %}
+  {% capture aqi_pollution %}Unknown {{ data.current.pollution.mainus }}{% endcapture %}
+{% endif %}
+<div class="layout layout--col">
+  <div class="flex flex--row flex--stretch w--full">
+    <div class="flex flex--center-x">
+      <img class="image--adaptive" src="https://raw.githubusercontent.com/dnguyen800/air-visual-card/refs/heads/master/dist/{{ aqi_icon }}">
+    </div>
+    <div class="flex flex--col">
+      <div><span class="value value--tnums">{{ data.current.pollution.aqius }}</span></div>
+      <div><span class="label">AQI</span></div>
+    </div>
+    <div class="flex flex--col">
+      <div><span class="value value--tnums">{{ aqi_level }}</span></div>
+      <div><span class="label">{{ aqi_pollution }}</span></div>
+    </div>
+  </div>
+  <div class="flex flex--row gap--xxlarge px--10">
+    <div>
+      <span class="text--large">{{ aqi_descr }}</span>
     </div>
   </div>
 </div>

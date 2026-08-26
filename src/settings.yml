@@ -43,7 +43,7 @@ custom_fields:
   name: About This Plugin
   category: environment
   field_type: author_bio
-  description: Air quality information from IQAir's Air Visual API
+  description: Air quality information from IQAir's Air Visual API. TRMNL Plugin by 2bithacker.
   github_url: https://github.com/2bithacker/trmnl-airvisual
   email_address: chip@2bithacker.net
 name: AirVisual

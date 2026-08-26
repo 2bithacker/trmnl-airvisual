@@ -39,6 +39,13 @@ custom_fields:
   field_type: lat_lon
   name: Location
   description: Search for a city or postal code, or provide a comma-separated lat/long.
+- keyname: author_bio
+  name: About This Plugin
+  category: environment
+  field_type: author_bio
+  description: Air quality information from IQAir's Air Visual API
+  github_url: https://github.com/2bithacker/trmnl-airvisual
+  email_address: chip@2bithacker.net
 name: AirVisual
 description: US AQI information from IQAir
 refresh_interval: 60

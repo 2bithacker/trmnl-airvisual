@@ -43,7 +43,7 @@ custom_fields:
   name: About This Plugin
   category: environment
   field_type: author_bio
-  description: Air quality information from IQAir's Air Visual API. TRMNL Plugin by 2bithacker. Icon designed by Magnific www.magnific.com
+  description: Air quality information from IQAir's Air Visual API. TRMNL Plugin by 2bithacker. Icon designed by Magnific <a href="http://www.magnific.com">www.magnific.com</a>.
   github_url: https://github.com/2bithacker/trmnl-airvisual
   email_address: chip@2bithacker.net
 name: AirVisual
